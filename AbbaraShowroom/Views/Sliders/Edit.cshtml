@@ -1,0 +1,55 @@
+﻿@model AbbaraShowroom.Models.Slider
+
+@{
+    ViewData["Title"] = "Slider Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">✏ Slider Güncelle</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" class="shadow-sm p-4 bg-white rounded">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Başlık</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Açıklama</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ButtonText" class="form-label">Buton Metni</label>
+        <input asp-for="ButtonText" class="form-control" />
+        <span asp-validation-for="ButtonText" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ButtonUrl" class="form-label">Buton Linki</label>
+        <input asp-for="ButtonUrl" class="form-control" />
+        <span asp-validation-for="ButtonUrl" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mevcut Görsel</label><br />
+        <img src="~/img/uploads/@Model.ImagePath" width="200" class="img-thumbnail" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Yeni Görsel Yükle (İsteğe Bağlı)</label>
+        <input type="file" name="imageFile" class="form-control" />
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">✅ Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary">↩ Geri Dön</a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

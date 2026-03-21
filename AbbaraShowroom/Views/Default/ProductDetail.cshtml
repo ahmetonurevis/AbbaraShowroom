@@ -1,0 +1,66 @@
+﻿@model AbbaraShowroom.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Fotoğraf Galerisi -->
+        <div class="col-md-6">
+            @if (Model.Photos?.Any() == true)
+            {
+                <div id="productGallery" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded shadow-sm bg-white">
+                        @for (int i = 0; i < Model.Photos.Count; i++)
+                        {
+                            var photo = Model.Photos.ElementAt(i);
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img src="~/img/uploads/@photo.ImagePath"
+                                     class="d-block w-100"
+                                     alt="Fotoğraf"
+                                     style="max-height: 500px; object-fit: contain; background-color: #fff; padding: 10px;" />
+                            </div>
+                        }
+                    </div>
+                    @if (Model.Photos.Count > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productGallery" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productGallery" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="bg-secondary text-white text-center py-5 rounded">Fotoğraf bulunamadı</div>
+            }
+        </div>
+
+        <!-- Ürün Bilgileri -->
+        <div class="col-md-6">
+            <h2>@Model.Name</h2>
+            <p class="text-muted">Kategori: @Model.Category?.Name</p>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Color))
+            {
+                <p><strong>Renk:</strong> @Model.Color</p>
+            }
+
+            @if (Model.Price.HasValue)
+            {
+                <p><strong>Fiyat:</strong> @Model.Price.Value.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</p>
+            }
+
+            <hr />
+            <p>@Model.Description</p>
+
+            <div class="mt-4">
+                <a asp-action="Products" class="btn btn-outline-secondary me-2">← Ürünlere Dön</a>
+                <a asp-action="Contact" class="btn btn-primary">İletişime Geç</a>
+            </div>
+        </div>
+    </div>
+</div>

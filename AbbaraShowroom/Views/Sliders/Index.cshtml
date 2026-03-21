@@ -1,0 +1,116 @@
+﻿@model IEnumerable<AbbaraShowroom.Models.Slider>
+
+@{
+    ViewData["Title"] = "Slider Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">🖼️ Slider Listesi</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">+ Yeni Slider Ekle</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Henüz slider eklenmemiş.</div>
+}
+else
+{
+    <table class="table table-bordered table-hover shadow-sm align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th style="width:5%;">#</th>
+                <th>Görsel</th>
+                <th>Başlık</th>
+                <th>Açıklama</th>
+                <th>Buton</th>
+                <th style="width: 200px;">İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.Id">
+                    <td>@item.Id</td>
+                    <td>
+                        <img src="~/img/uploads/@item.ImagePath" width="100" class="img-thumbnail" />
+                    </td>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ButtonText))
+                        {
+                            <a href="@item.ButtonUrl" target="_blank" class="btn btn-sm btn-outline-secondary">@item.ButtonText</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Yok</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">✏ Düzenle</a>
+                        <button class="btn btn-sm btn-danger ms-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                data-id="@item.Id"
+                                data-name="@item.Title">
+                            🗑 Sil
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Modal: Silme Onayı -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Silme Onayı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong><span id="deleteItemName"></span></strong> adlı sliderı silmek istiyor musunuz?</p>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="deleteItemId" />
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Evet, Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let selectedId = 0;
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            selectedId = button.data('id');
+            const name = button.data('name');
+            $('#deleteItemName').text(name);
+        });
+
+        $('#confirmDeleteBtn').click(function () {
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmed", "Sliders")',
+                type: 'POST',
+                data: { id: selectedId },
+                success: function (response) {
+                    if (response.success) {
+                        $('#deleteModal').modal('hide');
+                        $('#row-' + selectedId).fadeOut();
+                    } else {
+                        alert("❌ Hata: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Sunucu hatası oluştu.");
+                }
+            });
+        });
+    </script>
+}

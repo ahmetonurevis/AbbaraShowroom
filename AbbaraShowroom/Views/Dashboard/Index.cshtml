@@ -1,0 +1,82 @@
+﻿@model List<AbbaraShowroom.Models.Product>
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">📊 Yönetim Paneli</h2>
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-gradient bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Toplam Kategori</h5>
+                <h3 class="card-text fw-bold">@ViewBag.TotalCategories</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-gradient bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Toplam Ürün</h5>
+                <h3 class="card-text fw-bold">@ViewBag.TotalProducts</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-gradient bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Toplam Slider</h5>
+                <h3 class="card-text fw-bold">@ViewBag.TotalSliders</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm bg-gradient bg-warning text-dark">
+            <div class="card-body">
+                <h5 class="card-title">Gelen Mesaj</h5>
+                <h3 class="card-text fw-bold">@ViewBag.TotalMessages</h3>
+                <p class="mb-0 small">📬 Okunmamış: <strong>@ViewBag.UnreadMessages</strong></p>
+                <a href="/Messages" class="btn btn-sm btn-outline-dark mt-2">Mesajlara Git</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Son Eklenen Ürünler Listesi -->
+<div class="mt-5">
+    <h4 class="mb-3">🆕 Son Eklenen Ürünler</h4>
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered bg-white shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Eklenme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.Name</td>
+                            <td>@product.Category?.Name</td>
+                            <td>@product.CreatedDate.ToString("dd.MM.yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Hiç ürün bulunamadı.</div>
+    }
+</div>

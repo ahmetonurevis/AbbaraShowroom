@@ -1,0 +1,94 @@
+﻿@model AbbaraShowroom.Models.Message
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "İletişim";
+}
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">İletişim</h2>
+
+        <div class="row g-4">
+            <!-- Firma Bilgileri -->
+            <div class="col-md-6">
+                <div class="bg-white p-4 shadow-sm rounded">
+                    <h5>Adres</h5>
+                    <p>Abbara Havlu & Bornoz<br />Özbekistan</p>
+
+                    <h5>Telefon</h5>
+                    <p><a href="tel:+998909611617" class="text-decoration-none text-dark">+(998) 90 961 16 17</a></p>
+                    <ul class="list-unstyled ms-3">
+                        <li>
+                            <a href="https://wa.me/998909611617" target="_blank" class="text-success text-decoration-none">
+                                📱 WhatsApp ile iletişim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://t.me/+998909611617" target="_blank" class="text-primary text-decoration-none">
+                                ✉ Telegram ile iletişim
+                            </a>
+                        </li>
+                    </ul>
+
+                    <p><a href="tel:+998338674747" class="text-decoration-none text-dark">+(998) 33 867 47 47</a></p>
+
+                    <p><a href="tel:+905323333646" class="text-decoration-none text-dark">+(90) 532 333 36 46</a></p>                   
+
+                    <h5>E-Posta</h5>
+                    <p><a href="mailto:info@abbarahome.com" class="text-decoration-none text-dark">info@abbarahome.com</a></p>
+                </div>
+            </div>
+
+            @*             <!-- Google Harita -->
+            <div class="col-md-6">
+                <div class="ratio ratio-4x3 shadow-sm rounded">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!..."
+                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div> *@
+
+            <!-- İletişim Formu -->
+            <div class="col-md-6">
+                <div class="bg-light p-4 shadow-sm rounded">
+                    <h5 class="mb-3">Bize Ulaşın</h5>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Success"]</div>
+                    }
+
+                    <form asp-action="Contact" method="post">
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label"></label>
+                            <input asp-for="FullName" class="form-control" placeholder="Adınızı girin" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="example@mail.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Subject" class="form-label"></label>
+                            <input asp-for="Subject" class="form-control" placeholder="Konu" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Content" class="form-label"></label>
+                            <textarea asp-for="Content" class="form-control" rows="4" placeholder="Mesajınızı yazın..."></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

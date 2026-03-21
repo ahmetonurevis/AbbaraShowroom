@@ -1,0 +1,21 @@
+﻿@model AbbaraShowroom.Models.Message
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">📨 Mesaj Detayı</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <p><strong>Ad Soyad:</strong> @Model.FullName</p>
+        <p><strong>E-posta:</strong> @Model.Email</p>
+        <p><strong>Konu:</strong> @Model.Subject</p>
+        <p><strong>Tarih:</strong> @Model.SentDate.ToString("dd.MM.yyyy HH:mm")</p>
+        <hr />
+        <p><strong>Mesaj:</strong></p>
+        <p class="text-muted">@Model.Content</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">← Geri Dön</a>

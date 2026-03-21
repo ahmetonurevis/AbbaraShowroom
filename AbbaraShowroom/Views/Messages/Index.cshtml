@@ -1,0 +1,55 @@
+﻿@model List<AbbaraShowroom.Models.Message>
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mb-4">📩 Gelen Mesajlar</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Henüz mesaj alınmamış.</div>
+}
+else
+{
+    <table class="table table-bordered table-hover shadow-sm align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Ad Soyad</th>
+                <th>E-posta</th>
+                <th>Konu</th>
+                <th>Mesaj</th>
+                <th>Tarih</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var msg in Model)
+            {
+                <tr class="@(msg.IsRead ? "" : "table-warning")">
+                    <td>@msg.Id</td>
+                    <td>@msg.FullName</td>
+                    <td>@msg.Email</td>
+                    <td>@msg.Subject</td>
+                    <td>@(msg.Content?.Length > 50 ? msg.Content.Substring(0, 50) + "..." : msg.Content)</td>
+                    <td>@msg.SentDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @if (msg.IsRead)
+                        {
+                            <span class="badge bg-success">Okundu</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Okunmadı</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@msg.Id" class="btn btn-sm btn-primary">📨 Mesajı Gör</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
