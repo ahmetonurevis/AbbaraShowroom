@@ -1,8 +1,21 @@
-# AbbaraShowroom
+<div align="center">
+
+# 🛋️ AbbaraShowroom
+
+**Showroom ürünlerini kategori, slider ve yönetim paneliyle sunan ASP.NET Core MVC uygulaması**
+
+![.NET](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-5C2D91?logo=dotnet&logoColor=white)
+![EF Core](https://img.shields.io/badge/EF_Core-68217A?logo=dotnet&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?logo=microsoftsqlserver&logoColor=white)
+
+</div>
+
+---
 
 AbbaraShowroom, urunlerin kategori, gorsel, fiyat ve one cikan ozellikleriyle sergilendigi; yonetim paneli uzerinden iceriklerin kontrol edildigi ASP.NET Core MVC showroom uygulamasidir.
 
-## Ozellikler
+## ✨ Özellikler
 
 - Ana sayfa showroom vitrin yapisi
 - Urun listeleme ve detay icerikleri
@@ -13,7 +26,7 @@ AbbaraShowroom, urunlerin kategori, gorsel, fiyat ve one cikan ozellikleriyle se
 - Urun gorseli yukleme ve yayinlama
 - Entity Framework Core migration yapisi
 
-## Teknolojiler
+## 🧱 Teknoloji Yığını
 
 - ASP.NET Core MVC
 - .NET 9
@@ -22,7 +35,7 @@ AbbaraShowroom, urunlerin kategori, gorsel, fiyat ve one cikan ozellikleriyle se
 - Razor Views
 - Bootstrap ve jQuery
 
-## Proje Yapisi
+## 📁 Proje Yapısı
 
 ```text
 AbbaraShowroom/
@@ -36,7 +49,7 @@ AbbaraShowroom/
     └── wwwroot/         # CSS, JS ve yuklenen gorseller
 ```
 
-## Kurulum
+## 🚀 Kurulum
 
 1. Repoyu klonlayin.
 2. Visual Studio veya .NET CLI ile cozum dosyasini acin.
@@ -53,6 +66,12 @@ dotnet ef database update --project AbbaraShowroom/AbbaraShowroom.csproj
 dotnet run --project AbbaraShowroom/AbbaraShowroom.csproj
 ```
 
-## Gelistirme Notlari
+## 🛠️ Geliştirme Notları
 
 Yonetim panelindeki CRUD ekranlari controller ve Razor view katmanlariyla ayrilmistir. Yeni vitrin alanlari eklerken once model ve migration, ardindan controller/view guncellemesi yapilmalidir.
+
+---
+
+<div align="center">
+<sub>Bu proje özenle dokümante edildi. 🚀</sub>
+</div>
